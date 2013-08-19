@@ -1,1 +1,25 @@
-<h1>Show Index Post Page</h1>
+<h1>Show Post Page</h1>
+
+<h4>Title</h4>
+<%= @post.title %>
+<h4>Post</h4>
+<%= @post.description %>
+<br/>
+<h4>Comments</h4>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.description %></li>  
+  <% end %>
+</ul>
+
+<h6>Add Comment</h6>
+<%= form_for  [@post, @comment] do |f| %>
+
+  <%= render 'shared/errors', obj: @comment %>
+
+  <%= f.text_area :description %>
+  <br/>
+  <%= f.submit "Add Comment", class: 'btn' %>
+<% end %>
+
+<%= back_button %>

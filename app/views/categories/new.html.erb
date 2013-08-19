@@ -1,0 +1,12 @@
+<h1>New Categories Page</h1>
+
+<%= render 'shared/errors', obj: @category %>
+
+<%= form_for @category do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br/>
+  <%= f.submit "Create Category", class: 'btn' %>
+<% end %>
+
+<%= back_button %>

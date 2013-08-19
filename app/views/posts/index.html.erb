@@ -1,12 +1,25 @@
 <h3>Welcome!</h3>
+<div class="btn-group">
+  <%= link_to 'New Post', new_post_path, class: 'btn' %>
+  <%= link_to 'New Category', new_category_path, class: 'btn' %>
+</div>
 
-<p>This is the Postit template. You've access the PostsController, index action. This is the index template. Find me under app/views/posts folder.</p>
-
-<ul>
-  <% @posts.each do |post| %>
-    <li>
-      <%= post %>
-    </li>
-  <% end %>
-</ul>
+<% @posts.each do |post| %>
+  <h4><%= link_to post.title, post_path(post) %></h4>
+  <div class="well">
+    <%= post.description %>
+    <ul>
+      <% post.comments.each do |comment| %>
+        <li>
+          <%= comment.description %>
+        </li>
+      <% end %>      
+    </ul>
+    <div class= "btn-group">
+      <%= link_to 'Comment', post_path(post), class: 'btn' %>
+      <%= link_to 'Edit Post', edit_post_path(post), class: 'btn' %>
+    </div>
+  </div>  
+  <br/>
+<% end %>
 
