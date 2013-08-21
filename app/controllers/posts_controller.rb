@@ -1,10 +1,12 @@
 class PostsController < ApplicationController
+  before_action :set_post, only: [:show, :edit, :update]
+
   def index
     @posts = Post.all
   end
 
   def create
-    @post = Post.new(params.require(:post).permit!)
+    @post = Post.new(post_params)
     if @post.save
       flash[:notice] = "You created a new post!"
       redirect_to posts_path
@@ -19,22 +21,29 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def show
-    @post = Post.find(params[:id])
     @comment = Comment.new
   end
 
-  def update
-    @post = Post.find(params[:id])
-    if @post.update(params.require(:post).permit!)
+  def update    
+    if @post.update(post_params)
       flash[:notice] = "Your post has been updated"
       redirect_to post_path(@post)
     else
       #handle validations
       render :edit
     end
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit!
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 end
