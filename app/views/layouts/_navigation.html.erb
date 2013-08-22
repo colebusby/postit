@@ -11,10 +11,10 @@
     </li>
   <% else %>
     <li>
-      <%= link_to 'Register', register_path %>
+      <%= render '/sessions/new' %>
     </li>
     <li>
-      <%= render '/sessions/new' %>
+      <%= link_to 'Register', register_path %>
     </li>
   <% end %>
 </ul>
