@@ -19,4 +19,22 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
+  def access_denied
+    flash[:error] = "You can't do that!'"
+    redirect_to root_path
+  end
+
+  def vote_action(obj)
+    @obj = obj
+    @vote = Vote.new(voteable: @obj, creator: current_user, vote: params[:vote])
+    if @vote.save
+      respond_to do |format|
+        format.js
+      end
+    else
+      #render something
+      redirect_to :back
+    end
+  end
 end

@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update]
-  before_action :require_user, only: [:new, :create, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :vote]
+  before_action :require_user, only: [:new, :create, :edit, :update, :vote]
+  before_action :require_creator, only: [:edit, :update]
 
   def index
     @posts = Post.all
@@ -39,6 +40,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def vote
+    vote_action(@post)
+  end
+
   private
 
   def post_params
@@ -47,5 +52,9 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def require_creator
+    access_denied if @post.creator != current_user
   end
 end

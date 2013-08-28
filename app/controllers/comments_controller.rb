@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :set_comment, only: [:vote]
   before_action :require_user, only: [:create]
 
   def create
@@ -13,5 +14,15 @@ class CommentsController < ApplicationController
     else
       render 'posts/show'
     end
+  end
+
+  def vote
+    Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
+    flash[:notice] = "Vote Counted!"
+    redirect_to posts_path
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
   end
 end
