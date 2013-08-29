@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       redirect_to root_path
     else
       flash[:error] = 'Username or Password did not match.'
-      redirect_to root_path
+      redirect_to login_path
     end
   end
 

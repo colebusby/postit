@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.new(users_param)
     if @user.save
       flash[:notice] = "User: #{@user.username} is now registered!"
-      redirect_to posts_path
+      redirect_to login_path, method: 'post'
     else
       render :new
     end

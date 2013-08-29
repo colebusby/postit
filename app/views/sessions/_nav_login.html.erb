@@ -1,0 +1,7 @@
+<%= form_tag '/login', class: 'navbar-search' do %>
+  <i class='icon-user'></i>
+  <%= text_field_tag :username, nil, class: 'search-query input-small', placeholder: "Username" %>
+  <i class='icon-lock'></i>
+  <%= password_field_tag :password, nil, class: 'search-query input-small', placeholder: "Password" %>
+  <%= submit_tag 'Login', class: 'btn btn-small btn-success' %>
+<% end %>
