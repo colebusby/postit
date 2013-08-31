@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
-before_action :require_admin
+
+  before_action :set_category, only: [:show]
+  before_action :require_admin, only: [:new, :create]
 
   def new
     @category = Category.new
@@ -14,5 +16,15 @@ before_action :require_admin
       #handle validations
       render :new
     end
+  end
+
+  def show
+    @posts = @category.posts
+  end
+
+  private
+
+  def set_category
+    @category = Category.find_by(slug: params[:id])
   end
 end

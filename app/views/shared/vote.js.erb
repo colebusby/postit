@@ -1,0 +1,5 @@
+<% if @post_obj %>
+  $("#posts_<%=@post_obj.id%>_comments_<%=@obj.id%>_votes").html("<%=@obj.total_votes%>");
+<% else %>
+  $("#post_<%=@obj.id%>_votes") .html("<%=@obj.total_votes%>");
+<% end %>

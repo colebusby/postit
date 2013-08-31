@@ -25,12 +25,15 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
-  def vote_action(obj)
+  def vote_action(obj, post_obj = nil)
     @obj = obj
+    @post_obj = post_obj
     @vote = Vote.new(voteable: @obj, creator: current_user, vote: params[:vote])
     if @vote.save
       respond_to do |format|
-        format.js
+        format.js do
+          render 'shared/vote'
+        end
       end
     else
       #render something

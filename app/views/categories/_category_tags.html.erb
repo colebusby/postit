@@ -1,0 +1,8 @@
+<% obj.categories.each do |category| %>
+  <span class="badge badge-info">
+    <%= link_to category.name, category_path(category), class: 'text-warning' %>
+  </span>
+  <% if post_creator?(obj) %>
+    <%= link_to "<i class='icon-remove-sign'></i>".html_safe, categorization_path(Categorization.find_by(post_id: obj.id, category_id: category.id)), method: :delete %>
+  <% end %>
+<% end %>

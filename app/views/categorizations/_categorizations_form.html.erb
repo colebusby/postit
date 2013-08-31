@@ -1,0 +1,14 @@
+<div class="pull-right">
+  <% if post_creator?(obj) %>
+    <%= form_tag categorizations_path do %>
+      <% Category.all.each do |category| %>
+        <% unless obj.categories.include?(Category.find(category)) %>
+          <%= check_box_tag 'category_ids[]', category.id %>
+          <%= label_tag(:category_id, "#{category.name}") %>
+        <% end %>
+      <% end %>
+      <%= hidden_field_tag :post_id, obj.id %>
+      <%= submit_tag 'Tag Post', class: 'btn' %>
+    <% end %>
+  <% end %>
+</div>

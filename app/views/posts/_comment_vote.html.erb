@@ -1,3 +1,5 @@
 <%= link_to "<i class='icon-thumbs-up text-success'></i>".html_safe, vote_post_comment_path(post_obj, comment_obj, vote: true), method: 'post', remote: true if logged_in? %>
+
 <span id="posts_<%=post_obj.id%>_comments_<%=comment_obj.id%>_votes"><%= comment_obj.total_votes %></span>
+
 <%= link_to "<i class='icon-thumbs-down icon-flip-horizontal text-error'></i>".html_safe, vote_post_comment_path(post_obj, comment_obj, vote: false), method: 'post', remote: true if logged_in? %>

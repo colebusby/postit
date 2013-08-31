@@ -1,0 +1,34 @@
+<% @posts.each do |post| %>
+  <div class="well well-small">
+    <%= render 'categorizations/categorizations_form', obj: post %>
+    <%= render 'categories/category_tags', obj: post %>
+    <br/>
+    <small>On <%= display_datetime(post.created_at) %>, <%= link_to post.creator.username, user_path(post.creator) %> said:</small>
+    <div>
+       <h3><%= link_to post.title, post_path(post) %></h3>
+       <%= link_to post.url, fix_url(post.url) %>
+    </div>
+    <br/>
+    <div>
+       <%= render 'posts/post_vote', obj: post %>
+       <%= post.description %>
+    </div>
+    <br/>
+    <div>
+         <ul>
+           <% post.comments.each do |comment| %>
+             <li>
+               <%= render 'posts/comment_vote', post_obj: post, comment_obj: comment %>
+               <%= comment.description %>
+             </li>
+           <% end %>
+         </ul>
+      </div>
+    <div class= "btn-group">
+      <% if logged_in? %>
+        <%= link_to "<i class='icon-comment'></i>".html_safe, post_path(post), class: 'btn btn-small' %>
+        <%= link_to "<i class='icon-edit-sign'></i>".html_safe, edit_post_path(post), class: 'btn btn-small' if post_creator?(post) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

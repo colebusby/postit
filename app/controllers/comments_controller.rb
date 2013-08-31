@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :require_user, only: [:create]
 
   def create
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by(slug: params[:post_id])
     @comment = Comment.new(params.require(:comment).permit(:description))
     @comment.post = @post
     @comment.creator = current_user
@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by(slug: params[:post_id])
     vote_action(@comment, @post)
   end
 
